@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mi gogda 💛 | Galaxia</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      height: 100vh;
+      height: 100dvh;
+      background: #000;
+      overflow: hidden;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .nebulosa {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 30% 20%, rgba(120, 40, 180, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 60%, rgba(40, 80, 180, 0.2) 0%, transparent 45%),
+        radial-gradient(ellipse at 50% 50%, rgba(180, 80, 40, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at center, #0a0515 0%, #000 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .estrella {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--duracion) ease-in-out infinite alternate;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.15; transform: scale(0.7); }
+      50% { opacity: 1; transform: scale(1.3); }
+      100% { opacity: 0.25; transform: scale(0.9); }
+    }
+
+    .titulo {
+      position: absolute;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 50;
+      width: 90%;
+      pointer-events: none;
+    }
+
+    .titulo h1 {
+      font-size: clamp(1.5rem, 6vw, 2.3rem);
+      color: #ffd700;
+      text-shadow: 0 0 12px #ffd700, 0 0 30px #ffaa00, 0 0 60px #ff8800;
+      animation: glow 3.5s ease-in-out infinite alternate;
+    }
+
+    .titulo p {
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+      color: #ffe566;
+      margin-top: 5px;
+      text-shadow: 0 0 10px #ffd700;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ffd700, 0 0 25px #ffaa00; }
+      to { text-shadow: 0 0 20px #ffd700, 0 0 50px #ffaa00, 0 0 80px #ff6600; }
+    }
+
+    .nucleo {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fffde7, #ffeb3b 30%, #ffc107 55%, #ff8f00 80%, #e65100);
+      box-shadow: 
+        0 0 40px #ffd700,
+        0 0 80px #ffaa00,
+        0 0 120px rgba(255, 140, 0, 0.7),
+        inset 0 0 35px rgba(255,255,255,0.4);
+      z-index: 20;
+      animation: nucleoPulse 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .nucleo::before {
+      content: '';
+      position: absolute;
+      inset: -28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 215, 0, 0.25);
+      animation: anillo 7s ease-in-out infinite;
+    }
+
+    @keyframes nucleoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    @keyframes anillo {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    /* Contenedor que se mueve y hace zoom */
+    .universo {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    .orbita {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 215, 0, 0.07);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .orbita-1 { width: 260px; height: 260px; }
+    .orbita-2 { width: 380px; height: 380px; }
+    .orbita-3 { width: 500px; height: 500px; }
+
+    .elemento {
+      position: absolute;
+    }
+
+    .flor {
+      font-size: 22px;
+      filter: drop-shadow(0 0 10px #ffd700);
+      animation: flotar 5s ease-in-out infinite;
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(8deg); }
+    }
+
+    .mensaje {
+      position: absolute;
+      font-size: 0.8rem;
+      color: #ffe566;
+      text-shadow: 0 0 12px #ffd700;
+      white-space: nowrap;
+      opacity: 0;
+      animation: msgIn 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      pointer-events: none;
+    }
+
+    .mensaje.especial {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #fff;
+      text-shadow: 0 0 14px #ffd700, 0 0 28px #ffaa00;
+    }
+
+    @keyframes msgIn {
+      from { opacity: 0; transform: scale(0.3) translateY(20px); }
+      to { opacity: 0.95; transform: scale(1) translateY(0); }
+    }
+
+    .instruccion {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: rgba(255, 230, 100, 0.7);
+      text-align: center;
+      z-index: 50;
+      pointer-events: none;
+      width: 90%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nebulosa"></div>
+
+  <div class="titulo">
+    <h1>Mi gogda 💛</h1>
+    <p>Feliz día de las Flores Amarillas 🌻</p>
+  </div>
+
+  <div class="nucleo"></div>
+
+  <div class="universo" id="universo">
+    <div class="orbita orbita-1" id="orbita1"></div>
+    <div class="orbita orbita-2" id="orbita2"></div>
+    <div class="orbita orbita-3" id="orbita3"></div>
+  </div>
+
+  <div class="instruccion">
+    Arrastra para mover • Pellizca para zoom
+  </div>
+
+  <script>
+    // ========== ESTRELLAS ==========
+    function crearEstrellas() {
+      for (let i = 0; i < 160; i++) {
+        const e = document.createElement('div');
+        e.classList.add('estrella');
+        const size = Math.random() * 2.2 + 0.4;
+        e.style.width = size + 'px';
+        e.style.height = size + 'px';
+        e.style.left = Math.random() * 100 + 'vw';
+        e.style.top = Math.random() * 100 + 'vh';
+        e.style.setProperty('--duracion', (1.5 + Math.random() * 4) + 's');
+        e.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(e);
+      }
+    }
+
+    // ========== MENSAJES ==========
+    const mensajes = [
+      { t: "Flores para ti 🌻", e: true },
+      { t: "Sonríe siempre", e: false },
+      { t: "Siempre brillas", e: false },
+      { t: "Eres mi luz ✨", e: true },
+      { t: "Te elijo cada día", e: false },
+      { t: "Mi persona favorita", e: true },
+      { t: "Gracias por existir", e: false },
+      { t: "Contigo todo es mejor", e: false },
+      { t: "Mi gogda hermosa", e: true },
+      { t: "Amor eterno 💛", e: true },
+      { t: "Brillas más que el sol", e: false },
+      { t: "Eres mi paz", e: false },
+      { t: "Mi lugar seguro", e: false },
+      { t: "Te adoro", e: true },
+      { t: "Mi universo", e: true }
+    ];
+
+    function llenarOrbita(id, cantidad, radio) {
+      const orbita = document.getElementById(id);
+      for (let i = 0; i < cantidad; i++) {
+        const angulo = (i / cantidad) * Math.PI * 2;
+        const x = Math.cos(angulo) * radio;
+        const y = Math.sin(angulo) * radio;
+
+        const el = document.createElement('div');
+        el.classList.add('elemento');
+        el.style.left = `calc(50% + ${x}px)`;
+        el.style.top = `calc(50% + ${y}px)`;
+        el.style.transform = 'translate(-50%, -50%)';
+
+        const flor = document.createElement('div');
+        flor.classList.add('flor');
+        flor.textContent = '🌻';
+        flor.style.fontSize = (18 + Math.random() * 12) + 'px';
+        flor.style.animationDelay = Math.random() * 4 + 's';
+        el.appendChild(flor);
+
+        if (i % 2 === 0) {
+          const msgData = mensajes[i % mensajes.length];
+          const msg = document.createElement('div');
+          msg.classList.add('mensaje');
+          if (msgData.e) msg.classList.add('especial');
+          msg.textContent = msgData.t;
+          msg.style.animationDelay = (0.4 + i * 0.1) + 's';
+          msg.style.transform = `translate(-50%, -50%) translateY(-26px)`;
+          el.appendChild(msg);
+        }
+        orbita.appendChild(el);
+      }
+    }
+
+    // ========== CONTROL DE MOVIMIENTO Y ZOOM ==========
+    const universo = document.getElementById('universo');
+
+    let scale = 1;
+    let posX = 0;
+    let posY = 0;
+
+    let inicioX = 0;
+    let inicioY = 0;
+    let inicioScale = 1;
+    let inicioDistancia = 0;
+    let arrastrando = false;
+    let pellizcando = false;
+
+    // Actualizar transformación
+    function actualizar() {
+      universo.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+    }
+
+    // ===== TOUCH (CELULAR) =====
+    document.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        // Un dedo = arrastrar
+        arrastrando = true;
+        pellizcando = false;
+        inicioX = e.touches[0].clientX - posX;
+        inicioY = e.touches[0].clientY - posY;
+      } 
+      else if (e.touches.length === 2) {
+        // Dos dedos = zoom
+        arrastrando = false;
+        pellizcando = true;
+        inicioScale = scale;
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        inicioDistancia = Math.sqrt(dx * dx + dy * dy);
+      }
+    }, { passive: false });
+
+    document.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+
+      if (arrastrando && e.touches.length === 1) {
+        posX = e.touches[0].clientX - inicioX;
+        posY = e.touches[0].clientY - inicioY;
+        actualizar();
+      } 
+      else if (pellizcando && e.touches.length === 2) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const distancia = Math.sqrt(dx * dx + dy * dy);
+        let nuevoScale = inicioScale * (distancia / inicioDistancia);
+        
+        // Límites de zoom
+        scale = Math.min(Math.max(0.4, nuevoScale), 3);
+        actualizar();
+      }
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
+      arrastrando = false;
+      pellizcando = false;
+    });
+
+    // ===== MOUSE (COMPUTADORA) =====
+    let mouseAbajo = false;
+
+    document.addEventListener('mousedown', (e) => {
+      mouseAbajo = true;
+      inicioX = e.clientX - posX;
+      inicioY = e.clientY - posY;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!mouseAbajo) return;
+      posX = e.clientX - inicioX;
+      posY = e.clientY - inicioY;
+      actualizar();
+    });
+
+    document.addEventListener('mouseup', () => {
+      mouseAbajo = false;
+    });
+
+    // Zoom con rueda del mouse
+    document.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? 0.9 : 1.1;
+      scale = Math.min(Math.max(0.4, scale * delta), 3);
+      actualizar();
+    }, { passive: false });
+
+    // ========== INICIAR ==========
+    crearEstrellas();
+    llenarOrbita('orbita1', 7, 120);
+    llenarOrbita('orbita2', 9, 180);
+    llenarOrbita('orbita3', 11, 240);
+    actualizar();
+  </script>
+</body>
+</html>
